@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<!-- meta -->
+<ui:insert name="meta">
+	<!-- empty -->
+</ui:insert>
+<!-- head -->
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Schafkopf-Club Bayern e.V.</title>
+
+	<!-- insert external css files -->
+	<link
+		href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css"
+		rel="stylesheet" />
+</h:head>
+
+<!-- body -->
+<h:body>
+	<!-- insert application CSS files -->
+	<h:outputStylesheet library="css" name="reset.css" />
+	<h:outputStylesheet library="css" name="styles.css" />
+	<h:outputStylesheet library="css" name="primefaces.css" />
+	<h:outputStylesheet library="css" name="scb.css" />
+
+	<h:panelGroup layout="block" id="container" styleClass="width">
+		<!-- include HEADER -->
+		<ui:include src="/ui/template/common/header.xhtml" />
+		<!-- include INTRO -->
+		<ui:include src="/ui/template/common/intro.xhtml" />
+		<!-- include EXCEPTION -->
+		<ui:include src="/ui/template/common/exception.xhtml" />
+		<!-- insert CONTENT -->
+		<ui:insert name="content" />
+		<!-- include FOOTER -->
+		<ui:include src="/ui/template/common/footer.xhtml" />
+	</h:panelGroup>
+</h:body>
+</html>

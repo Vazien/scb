@@ -1,0 +1,85 @@
+<!-- index.xhtml -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/ui/template/template.xhtml">
+
+	<!-- override content -->
+	<ui:define name="content">
+		<!-- content -->
+		<div id="empty-body" class="width">
+			<h:panelGroup layout="block" styleClass="headline">
+				<p>
+					<i class="fa fa-picture-o" /> Galerie
+				</p>
+			</h:panelGroup>
+			<!-- login form -->
+			<h:form id="galleryForm">
+				<div id="body" class="width">
+					<p:toolbar rendered="#{userAuthentication.userLoggedIn}">
+						<f:facet name="left">
+							<p:commandButton icon="ui-icon-plus" value="Neues Album"
+								actionListener="#{albumView.doCreateAlbum}"
+								update=":galleryForm:albumList" />
+						</f:facet>
+					</p:toolbar>
+					<!-- album list -->
+					<h:panelGroup layout="block" id="albumList">
+						<ui:repeat var="album" value="#{albumView.albumList}">
+							<p:panelGrid columns="1"
+								style="width:32%; margin: 5px 5px 5px 0px; float:left;">
+								<f:facet name="header">
+									<h:commandLink
+										action="#{galleryController.navigateAlbumDetail(album)}"
+										style="border-bottom: 0px;">
+										<p:graphicImage value="#{galleryImageStreamer.defaultImage}"
+											style="width:128px; height: 128px;">
+											<f:param name="default_image_id" value="#{album.id}" />
+										</p:graphicImage>
+									</h:commandLink>
+								</f:facet>
+								<h:panelGroup layout="block">
+									<h:outputText value="#{album.name}" />
+									<h:panelGroup layout="block" style="float:right"
+										rendered="#{userAuthentication.userLoggedIn}">
+										<p:commandButton icon="ui-icon-pencil" title="Name ändern"
+											update=":galleryForm:albumDetail"
+											oncomplete="PF('albumEdit').show()">
+											<f:setPropertyActionListener value="#{album}"
+												target="#{albumView.selectedAlbum}" />
+										</p:commandButton>
+										<p:commandButton icon="ui-icon-trash" title="Löschen"
+											update=":galleryForm:albumList"
+											actionListener="#{albumView.doDeleteAlbum(album)}"
+											onclick="if(! confirm('Möchten Sie dieses Album wirklich löschen?')) return false" />
+									</h:panelGroup>
+								</h:panelGroup>
+							</p:panelGrid>
+						</ui:repeat>
+					</h:panelGroup>
+				</div>
+
+				<!-- edit dialog -->
+				<p:dialog header="Album ändern" widgetVar="albumEdit" modal="true"
+					height="100">
+					<p:outputPanel id="albumDetail">
+						<h:panelGrid columns="2" cellpadding="5"
+							rendered="#{not empty albumView.selectedAlbum}">
+							<h:outputLabel for="name" value="Name:" />
+							<p:inputText id="name" value="#{albumView.selectedAlbum.name}"
+								required="true" label="name" />
+							<f:facet name="footer">
+								<p:commandButton actionListener="#{albumView.doChangeAlbumName}"
+									value="Speichern" oncomplete="PF('albumEdit').hide()"
+									update=":galleryForm:albumList" />
+							</f:facet>
+						</h:panelGrid>
+					</p:outputPanel>
+				</p:dialog>
+			</h:form>
+			<div class="clear"></div>
+		</div>
+	</ui:define>
+</ui:composition>

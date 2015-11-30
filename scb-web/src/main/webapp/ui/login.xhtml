@@ -1,0 +1,43 @@
+<!-- index.xhtml -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/ui/template/template.xhtml">
+
+	<!-- override content -->
+	<ui:define name="content">
+		<!-- content -->
+		<div id="empty-body" class="width">
+			<h:panelGroup layout="block" styleClass="headline">
+				<p>
+					<i class="fa fa-sign-in" /> Anmelden
+				</p>
+			</h:panelGroup>
+			<!-- login form -->
+			<h:form id="loginForm">
+
+				<div id="body" class="width">
+					<p:messages id="messages" showDetail="true" />
+					<h:panelGrid columns="2" styleClass="borderless-grid">
+						<h:outputLabel for="username" value="Benutzer:" styleClass="label"
+							style="padding-right:100px;" />
+						<h:inputText id="username" value="#{loginController.account}"
+							label="username" styleClass="label" />
+						<h:outputLabel for="password" value="Passwort:" styleClass="label" />
+						<h:inputSecret id="password" value="#{loginController.password}"
+							label="password" styleClass="label" />
+						<h:outputText value="Angemeldet bleiben?: " styleClass="label" />
+						<p:selectBooleanCheckbox value="#{loginController.remember}" />
+						<f:facet name="footer">
+							<p:commandButton value="Anmelden"
+								action="#{loginController.doLogin}" update="messages" />
+						</f:facet>
+					</h:panelGrid>
+				</div>
+			</h:form>
+			<div class="clear"></div>
+		</div>
+	</ui:define>
+</ui:composition>

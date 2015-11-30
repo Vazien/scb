@@ -1,0 +1,56 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+	<footer>
+		<h:form>
+			<div class="footer-content width">
+				<ul>
+					<li><p class="label-footer">Verein</p></li>
+					<li><a href="#{doc.getDocumentLink('INV.pdf')}"
+						target="_blank"><i class="fa fa-sign-in" /> Beitritt</a></li>
+					<li><h:commandLink action="statute?faces-redirect=true">
+							<i class="fa fa-sign-in" /> Satzung</h:commandLink></li>
+					<li><h:commandLink action="contact?faces-redirect=true">
+							<i class="fa fa-sign-in" /> Kontakt</h:commandLink></li>
+				</ul>
+				<ul>
+					<li><p class="label-footer">Links</p></li>
+					<li><a href="http://www.schafkopfbladl.com/"><i
+							class="fa fa-share-square-o" /> Schafkopfbladl.com </a></li>
+					<li><a href="http://www.schafkopfrennen.de/"><i
+							class="fa fa-share-square-o" /> Schafkopfrennen.de </a></li>
+				</ul>
+				<ul>
+					<li><p class="label-footer">Benutzer</p></li>
+					<li><h:commandLink action="login?faces-redirect=true"
+							rendered="#{!userAuthentication.userLoggedIn}">
+							<i class="fa fa-sign-in"></i> Anmelden</h:commandLink></li>
+					<li><h:commandLink action="#{loginController.doLogout}"
+							rendered="#{userAuthentication.userLoggedIn}">
+							<i class="fa fa-sign-out"></i> Abmelden</h:commandLink></li>
+				</ul>
+				<ul>
+					<li><p class="label-footer">Besucher</p></li>
+					<li><i class="fa fa-bar-chart-o"></i> Heute: <p:outputLabel
+							value="#{visitController.statistic.today}" /></li>
+					<li><i class="fa fa-bar-chart-o"></i> Woche: <p:outputLabel
+							value="#{visitController.statistic.week}" /></li>
+					<li><i class="fa fa-bar-chart-o"></i> Monat: <p:outputLabel
+							value="#{visitController.statistic.month}" /></li>
+					<li><i class="fa fa-bar-chart-o"></i> Gesamt: <p:outputLabel
+							value="#{visitController.statistic.total}" /></li>
+				</ul>
+				<div class="clear"></div>
+			</div>
+			<div class="footer-bottom">
+				<p>
+					SCB 2015. <a href="http://zypopwebtemplates.com/">Free HTML5
+						Templates</a> by ZyPOP
+				</p>
+			</div>
+		</h:form>
+	</footer>
+</ui:composition>

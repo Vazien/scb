@@ -1,0 +1,195 @@
+@CHARSET "ISO-8859-1";
+
+/*classes*/
+.headline {
+	width: 100%;
+	background: linear-gradient(#4877D5, #2C5EC1);
+}
+
+.headline p {
+	color: #FFFFFF;
+	font-weight: bold;
+	padding: 2px 0px 0px 10px;
+	margin-bottom: 0px;
+}
+
+.borderless-grid {
+	width: auto;
+}
+
+.borderless-grid tbody tr td {
+	border: 0px;
+}
+
+.borderless-grid tfoot tr td {
+	border: 0px;
+}
+
+.label {
+	font-size: 14px;
+	font-family: "Source Sans Pro", "sans-serif";
+	color: rgb(102, 102, 102);
+}
+
+.label-footer {
+	font-size: 25px;
+	font-family: "Source Sans Pro", "sans-serif";
+}
+/*elements */
+#empty-body {
+	background: none;
+	margin: 0px;
+	padding: 0px;
+	clear: both;
+}
+
+a.button-slider-year {
+	padding: 0px 10px 0px 10px;
+	font-size: 0.8em;
+	text-align: center;
+	margin: 5px 5px 5px 0;
+}
+
+a.button-slider-year i {
+	padding-right: 5px;
+}
+
+.league {
+	width: 90%;
+	padding-left: 0px;
+}
+
+.league-sidebar {
+	width: 10%
+}
+
+.league-result-column {
+	text-align: center
+}
+
+.callout {
+	border: 1px solid #eee;
+	border-left-color: #2A5BBB;
+	border-left-width: 3px;
+	padding: 10px !important;
+	border-right: 0;
+	border-top: 0;
+	border-bottom: 0;
+}
+
+.albumdetail {
+	width: 80%;
+	padding-left: 20px;
+}
+
+.albumdetail-sidebar {
+	width: 20%;
+}
+
+a.button-slider-albumdetail {
+	font-size: 0.7em;
+	text-align: left;
+	margin: 0px 5px 5px 5px;
+	width: 75%;
+}
+
+.galleryimage-lightbox {
+	width: 640px;
+	height: 480px;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	-moz-background-size: cover;
+}
+
+}
+a.button-slider-albumdetail i {
+	padding-right: 5px;
+}
+
+p.statute {
+	text-align: justify;
+	line-height: 1.2em;
+	font-size: 14px;
+	margin-top: 5px;
+}
+
+p.statute-topic {
+	text-align: justify;
+	line-height: 14px;
+	font-size: 14px;
+	margin-top: 0px;
+	margin-left: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 0px;
+}
+
+.contact {
+	font-size: 14px;
+	font-family: 'Source Sans Pro', 'sans-serif';
+}
+
+.borderless-grid-contact {
+	width: auto;
+}
+
+.borderless-grid-contact tbody tr td {
+	border: 0px;
+	padding: 3px 10px;
+}
+
+.borderless-grid-contact tfoot tr td {
+	border: 0px;
+}
+
+ol.statute {
+	font-size: 14px;
+	margin: 0 0px 10px 35px;
+}
+
+ol.statute li {
+	list-style: decimal;
+}
+
+ol.statute-topic {
+	font-size: 14px;
+	margin: 0 0px 10px 35px;
+}
+
+ol.statute-topic li {
+	list-style: lower-alpha;
+}
+
+h4.statute {
+	font-size: 18px;
+	margin-top: 10px;
+}
+
+.ajaxloading {
+	color: #FFFFFF;
+	background-color: #2A5BBB;
+	font-size: 16px;
+	font-weight: bold;
+	font-family: "Source Sans Pro", "sans-serif";
+	text-align: center;
+	filter: Alpha(opacity = 80);
+	-moz-opacity: 0.7;
+	width: 100%;
+}
+
+.column30 {
+	width: 30%;
+	padding-left: 0px;
+}
+
+.column70 {
+	width: 30%
+}
+
+@font-face {
+	font-family: 'Hiruko-BlackAlternate';
+	font-style: normal;
+	font-weight: normal;
+	src: local('Hiruko-BlackAlternate'), url('HirukoBlackAlternate.woff')
+		format('woff');
+}

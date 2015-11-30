@@ -1,0 +1,90 @@
+<!-- index.xhtml -->
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	template="/ui/template/template.xhtml">
+
+	<!-- override content -->
+	<ui:define name="content">
+		<!-- content -->
+		<div id="empty-body" class="width">
+			<h:panelGroup layout="block" styleClass="headline">
+				<p>
+					<i class="fa fa-shield" />
+					<h:outputText value="#{leagueView.headline}" />
+				</p>
+			</h:panelGroup>
+			<h:form id="leagueForm">
+				<div id="body" class="width">
+					<h:panelGroup layout="block" style="margin: 5px 5px 5px 0px">
+						<p style="margin-bottom: 0px;">
+							<ui:repeat value="#{leagueView.years}" var="year">
+								<p:commandLink action="#{leagueView.loadLeague(year)}"
+									update=":leagueForm:leagueGrid"
+									styleClass="button button-slider-year" value="#{year}" />
+							</ui:repeat>
+						</p>
+					</h:panelGroup>
+
+					<h:panelGrid id="leagueGrid" columns="2"
+						columnClasses="league, league-sidebar"
+						styleClass="borderless-grid" style="width:100% !important">
+						<h:panelGroup layout="block">
+							<p:dataTable id="resultTable" var="result"
+								value="#{leagueView.leagueResult.result}"
+								sortBy="#{result.ranking}">
+								<f:facet name="header">
+									<p style="margin-bottom: 0px !important;">
+										Tabelle
+										<p:outputLabel value="#{leagueView.selectedYear}" />
+									</p>
+								</f:facet>
+								<p:column headerText="Platz" style="width:7%"
+									styleClass="league-result-column">
+									<h:outputText value="#{result.ranking}" />
+								</p:column>
+								<p:column headerText="Mannschaft">
+									<h:outputText value="#{result.team.name}" />
+								</p:column>
+								<p:column headerText="Zwischenstand"
+									styleClass="league-result-column">
+									<h:outputText value="#{result.previousSchedules}" />
+								</p:column>
+								<p:column headerText="Letzter Spieltag"
+									styleClass="league-result-column">
+									<h:outputText value="#{result.lastSchedule}" />
+								</p:column>
+								<p:column headerText="Punkte Gesamt"
+									styleClass="league-result-column">
+									<h:outputText value="#{result.summary}" />
+								</p:column>
+								<f:facet name="footer">
+									<p:button icon="ui-icon-gear" value="Ergebnisse ändern"
+										rendered="#{userAuthentication.userLoggedIn}"
+										outcome="schedule">
+										<f:param name="leagueId" value="#{leagueView.league.id}" />
+									</p:button>
+								</f:facet>
+							</p:dataTable>
+						</h:panelGroup>
+
+						<h:panelGroup layout="block">
+							<p:dataTable id="scheduleTable" var="schedule"
+								value="#{leagueView.league.schedule}" sortBy="#{schedule.index}">
+								<f:facet name="header">
+									<p style="margin-bottom: 0px !important;">Spieltag</p>
+								</f:facet>
+								<p:column style="width:10%">
+									<h:outputText value="#{schedule.index}" />
+								</p:column>
+							</p:dataTable>
+						</h:panelGroup>
+					</h:panelGrid>
+				</div>
+			</h:form>
+			<div class="clear"></div>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,100 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	template="/ui/template/template.xhtml">
+
+	<!-- override content -->
+	<ui:define name="content">
+		<!-- content -->
+		<div id="empty-body" class="width">
+			<h:panelGroup layout="block" styleClass="headline">
+				<p>
+					<i class="fa fa-calendar" /> Termine
+				</p>
+			</h:panelGroup>
+			<!-- login form -->
+			<h:form id="appointmentForm">
+				<div id="body" class="width">
+					<h:panelGroup layout="block"
+						rendered="#{userAuthentication.userLoggedIn}">
+						<p:toolbar>
+							<f:facet name="left">
+								<p:commandButton icon="ui-icon-plus" value="Neuer Termin"
+									actionListener="#{appointmentView.doCreate}"
+									oncomplete="PF('appointmentDialog').show()"
+									update=":appointmentForm:appointmentDetail" />
+							</f:facet>
+							<f:facet name="right">
+
+								<h:outputText value="Nur aktuelle Termine anzeigen? "
+									styleClass="label" />
+								<p:selectBooleanButton id="displayOnlyCurrentSwitcher"
+									value="#{appointmentView.displayOnlyCurrent}" onLabel="Ja"
+									offLabel="Nein" onIcon="ui-icon-check" offIcon="ui-icon-close"
+									style="width:60px">
+									<p:ajax update="appointmentsTable"
+										listener="#{appointmentView.doLoadAppointments}" />
+								</p:selectBooleanButton>
+							</f:facet>
+						</p:toolbar>
+					</h:panelGroup>
+					<p:dataTable id="appointmentsTable" var="appo"
+						value="#{appointmentView.appointments}" sortBy="#{appo.date}">
+						<p:column headerText="Datum" width="20%">
+							<h:outputText value="#{appo.date}" style="line-height:40px;">
+								<f:convertDateTime type="date" locale="de" timeZone="GMT+1"
+									pattern="dd. MMMM yyyy HH:mm" />
+							</h:outputText>
+						</p:column>
+						<p:column headerText="Beschreibung">
+							<h:outputText value="#{appo.description}" escape="false" />
+						</p:column>
+						<p:column style="width:32px;text-align: center"
+							rendered="#{userAuthentication.userLoggedIn}">
+							<p:commandButton icon="ui-icon-pencil" title="Ändern"
+								update=":appointmentForm:appointmentDetail"
+								oncomplete="PF('appointmentDialog').show()">
+								<f:setPropertyActionListener value="#{appo}"
+									target="#{appointmentView.selectedAppointment}" />
+							</p:commandButton>
+							<p:commandButton icon="ui-icon-trash" title="Löschen"
+								update=":appointmentForm:appointmentsTable"
+								actionListener="#{appointmentView.doDelete(appo)}"
+								onclick="if(! confirm('Möchten Sie diesen Termin wirklich löschen?')) return false" />
+						</p:column>
+						<f:facet name="footer">
+							<p:commandButton icon="ui-icon-gear" value="Alle entfernen"
+								rendered="#{userAuthentication.userLoggedIn}" />
+						</f:facet>
+					</p:dataTable>
+
+					<!-- edit dialog -->
+					<p:dialog header="Termin" widgetVar="appointmentDialog"
+						modal="true" showEffect="fade" hideEffect="fade" resizable="false"
+						styleClass="dialog">
+						<p:outputPanel id="appointmentDetail" style="text-align:center;">
+							<h:panelGrid columns="2" styleClass="borderless-grid"
+								rendered="#{not empty appointmentView.selectedAppointment}">
+								<p:outputLabel for="date" value="Datum:" />
+								<p:calendar id="date"
+									value="#{appointmentView.selectedAppointment.date}"
+									showOn="button" pattern="MM/dd/yyyy HH:mm:ss" locale="de"
+									timeZone="GMT+1" />
+								<p:outputLabel for="description" value="Beschreibung:" />
+								<p:inputTextarea id="description" rows="10" cols="50"
+									value="#{appointmentView.selectedAppointment.description}"
+									label="description" />
+								<p:commandButton actionListener="#{appointmentView.doSave}"
+									value="Speichern" oncomplete="PF('appointmentDialog').hide()"
+									update=":appointmentForm:appointmentsTable" />
+							</h:panelGrid>
+						</p:outputPanel>
+					</p:dialog>
+				</div>
+			</h:form>
+			<div class="clear"></div>
+		</div>
+	</ui:define>
+</ui:composition>
